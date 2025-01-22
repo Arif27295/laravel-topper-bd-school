@@ -141,6 +141,11 @@
 									 <div class="form-group-2">
 											<select class="form-select" id="s_present_district" name="t_present_district" required >
 												<option>District..</option>
+											  @if($districts->count() > 0)
+													@foreach($districts as $district)
+														<option value="{{$district->id}}">{{$district->d_name}}</option>
+													@endforeach
+												@endif
 											</select>
 										</div>
 								</div>
@@ -189,7 +194,12 @@
 									<label for="s_district" class="form-label">District : <sup>*</sup></label>
 									 <div class="form-group-2">
 											<select class="form-select" id="s_permanent_district" name="t_permanent_district" required >
-											  <option>District..</option>
+												<option>District..</option>
+											  @if($districts->count() > 0)
+													@foreach($districts as $district)
+														<option value="{{$district->id}}">{{$district->d_name}}</option>
+													@endforeach
+												@endif
 											</select>
 										</div>
 								</div>
@@ -215,3 +225,252 @@
 					<button type="submit" class="st_button ms-3" name="s_submit">Submit</button>
 				</form>
 @endsection
+@push('scripts')
+				<script type='text/javascript'>
+					//upzila-start	
+					$('#s_present_district').on('change', function() {
+						var district_id = $(this).val();
+						if (district_id) {
+							$.ajax({
+								url: '{{route("upzila")}}',
+								type: "POST",
+								data: {
+									"_token": "{{ csrf_token() }}",
+									district_id: district_id
+								},
+								success: function(result) {
+									$('#s_present_upzila').empty().append('<option value="">Select Upzila</option>');
+									$.each(result, function(key, value) {
+										$('#s_present_upzila').append('<option value="' + value.id + '">' + value.name + '</option>');
+									});
+								},
+								error: function(xhr) {
+									console.error(xhr.responseText);
+								}
+							});
+						} else {
+							$('#s_present_upzila').empty().append('<option value="">Select Upzila</option>');
+						}
+					});
+					$('#s_permanent_district').on('change', function() {
+						var district_id = $(this).val();
+						if (district_id) {
+							$.ajax({
+								url: '{{route("upzila")}}',
+								type: "POST",
+								data: {
+									"_token": "{{ csrf_token() }}",
+									district_id: district_id
+								},
+								success: function(result) {
+									$('#s_permanent_upzila').empty().append('<option value="">Select Upzila</option>');
+									$.each(result, function(key, value) {
+										$('#s_permanent_upzila').append('<option value="' + value.id + '">' + value.name + '</option>');
+									});
+								},
+								error: function(xhr) {
+									console.error(xhr.responseText);
+								}
+							});
+						} else {
+							$('#s_permanent_upzila').empty().append('<option value="">Select Upzila</option>');
+						}
+					});
+					//upzila-end
+					//post_office-start
+					$('#s_present_upzila').on('change', function() {
+						var upzila_id = $(this).val();
+						if (upzila_id) {
+							$.ajax({
+								url: '{{route("post_office")}}',
+								type: "POST",
+								data: {
+									"_token": "{{ csrf_token() }}",
+									upzila_id: upzila_id
+								},
+								success: function(result) {
+									$('#s_present_p_office').empty().append('<option value="">Select Post Office</option>');
+									$.each(result, function(key, value) {
+										$('#s_present_p_office').append('<option value="' + value.id + '">' + value.p_name + '</option>');
+									});
+								},
+								error: function(xhr) {
+									console.error(xhr.responseText);
+								}
+							});
+						} else {
+							$('#s_present_p_office').empty().append('<option value="">Select Post Office</option>');
+						}
+					});
+					$('#s_permanent_upzila').on('change', function() {
+						var upzila_id = $(this).val();
+						if (upzila_id) {
+							$.ajax({
+								url: '{{route("post_office")}}',
+								type: "POST",
+								data: {
+									"_token": "{{ csrf_token() }}",
+									upzila_id: upzila_id
+								},
+								success: function(result) {
+									$('#s_permanent_p_office').empty().append('<option value="">Select Post Office</option>');
+									$.each(result, function(key, value) {
+										$('#s_permanent_p_office').append('<option value="' + value.id + '">' + value.p_name + '</option>');
+									});
+								},
+								error: function(xhr) {
+									console.error(xhr.responseText);
+								}
+							});
+						} else {
+							$('#s_permanent_p_office').empty().append('<option value="">Select Post Office</option>');
+						}
+					});
+					//post_office-end
+					//post_office-code-start
+					$('#s_present_p_office').on('change', function() {
+						var code = $(this).val();
+						if (code) {
+							$.ajax({
+								url: '{{route("post_code")}}',
+								type: "POST",
+								data: {
+									"_token": "{{ csrf_token() }}",
+									code: code
+								},
+								success: function(result) {
+									$('#s_present_p_cod').empty().append('<option value="">Select Post Code</option>');
+									$.each(result, function(key, value) {
+										$('#s_present_p_cod').append('<option value="' + value.id + '">' + value.p_code + '</option>');
+									});
+								},
+								error: function(xhr) {
+									console.error(xhr.responseText);
+								}
+							});
+						} else {
+							$('#s_present_p_cod').empty().append('<option value="">Select Post Code</option>');
+						}
+					});
+					$('#s_permanent_p_office').on('change', function() {
+						var code = $(this).val();
+						if (code) {
+							$.ajax({
+								url: '{{route("post_code")}}',
+								type: "POST",
+								data: {
+									"_token": "{{ csrf_token() }}",
+									code: code
+								},
+								success: function(result) {
+									$('#s_permanent_p_cod').empty().append('<option value="">Select Post Code</option>');
+									$.each(result, function(key, value) {
+										$('#s_permanent_p_cod').append('<option value="' + value.id + '">' + value.p_code + '</option>');
+									});
+								},
+								error: function(xhr) {
+									console.error(xhr.responseText);
+								}
+							});
+						} else {
+							$('#s_permanent_p_cod').empty().append('<option value="">Select Post Code</option>');
+						}
+					});
+					//post_office-code-end
+
+
+					//add-student-start--
+	$("#check1").click(function(){
+		if ($('#check1').is(':checked')) {
+			var v1 =	$("#s_present_care").val();
+			var v2 =	$("#s_present_village").val();
+			var v3 =	$("#s_present_upzila").val();
+			var v4 =	$("#s_present_district").val();
+			var v5 =	$("#s_present_p_office").val();
+			var v6 =	$("#s_present_p_cod").val();
+			
+				
+				$("#s_permanent_district").val(v4);
+				$("#s_permanent_care").val(v1);
+				$("#s_permanent_village").val(v2);
+				
+			//upzila-start-
+				$.ajax({
+					url: '{{route("upzila")}}',                                         
+					type: "POST",
+					data: {
+						"_token": "{{ csrf_token() }}",
+						district_id: v4
+					},
+					success: function(result) {
+						$('#s_permanent_upzila').empty().append('<option value="">Select Upzila</option>');
+							$.each(result, function(key, value) {
+								$('#s_permanent_upzila').append('<option value="' + value.id + '">' + value.name + '</option>');
+						});
+
+					$("#s_permanent_upzila").val(v3);
+				   }
+		        });
+			//upzila-end-
+			//post-office-start-
+				$.ajax({
+					url: '{{route("post_office")}}',                                         
+					type: "POST",
+					data: {
+						"_token": "{{ csrf_token() }}",
+						upzila_id: v3
+					},
+					success: function(result) {
+						$('#s_permanent_p_office').empty().append('<option value="">Select Post Office</option>');
+							$.each(result, function(key, value) {
+								$('#s_permanent_p_office').append('<option value="' + value.id + '">' + value.p_name + '</option>');
+							}
+						);
+					$("#s_permanent_p_office").val(v5);
+					   }
+				})
+			//post-office-end-
+			//post-office-code-start-
+				$.ajax({
+					url: '{{route("post_code")}}',                                         
+					type: "POST",
+					data: {
+						"_token": "{{ csrf_token() }}",
+						code: v5
+					},
+					success: function(result) {
+						$('#s_permanent_p_cod').empty().append('<option value="">Select Post Code</option>');
+							$.each(result, function(key, value) {
+								$('#s_permanent_p_cod').append('<option value="' + value.id + '">' + value.p_code + '</option>');
+							}
+						);
+					$("#s_permanent_p_cod").val(v6);
+					   }
+				})
+			//post-office-code-end-
+			}else{
+				$("#s_permanent_care").val('');
+				$("#s_permanent_village").val('');
+				
+				var districtOptions = '<option value="">District..</option>';
+				@if($districts->count() > 0)
+					@foreach($districts as $district)
+						districtOptions += '<option value="{{ $district->id }}">{{ $district->d_name }}</option>';
+					@endforeach
+				@endif
+				$("#s_permanent_district").html(districtOptions);
+
+				var upzilaOptions = '<option value="">Upazila/P.S..</option>';
+				$('#s_permanent_upzila').html(upzilaOptions);
+				
+				var post_office_Options = '<option value="">Post Office..</option>';
+				$("#s_permanent_p_office").html(post_office_Options);
+
+				var post_code_Options = '<option value="">Post Code..</option>';
+				$("#s_permanent_p_cod").html(post_code_Options);
+			}
+				   
+		  });
+	//add-student-end--
+				</script>
+				@endpush
