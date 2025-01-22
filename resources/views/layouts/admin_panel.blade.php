@@ -6,10 +6,28 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 	<link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/dataTables_css/dataTables.bootstrap5.css')}}" rel="stylesheet">
+	<link href="{{asset('css/dataTables_css/buttons.bootstrap5.css')}}" rel="stylesheet">
 	<link rel="icon" href="{{asset('asset/img/icon.png')}}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 	<title>Topper BD School</title>
+
+    <style>
+		.scrollbox{
+				overflow:auto;
+				margin: 0px 12px;
+				margin-bottom: 30px;
+			}
+			::-webkit-scrollbar{
+				width:0px;
+				height:6px;
+			}
+			::-webkit-scrollbar-thumb{
+				background:#BA1654;
+				border-radius:10px;
+			}
+	</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -34,7 +52,7 @@
 							<li class="nav-item"><a href="#" class="nav-link dropdown-chevron"><i class="ri-open-arm-line"></i> <span>Students</span> <i class="fa-solid fa-chevron-right "></i></a>
 								<div class="sub-nav" style="display:none">
 									<ul class="nav flex-column">
-										<li class="link-item"><a href="student_list.php" class="nav-link">Students List</a></li>
+										<li class="link-item"><a href="{{route('student_list')}}" class="nav-link">Students List</a></li>
 										<li class="link-item"><a href="{{route('add_student')}}" class="nav-link">Add Student</a></li>
 										<li class="link-item"><a href="students_profile.php" class="nav-link">Students Profile</a></li>
 									</ul>
@@ -108,7 +126,7 @@
 					<div class="col-10">
 						<div class="row">
 							<div class="col-6 menu-bar">
-								<i class="ri-menu-line"></i>  
+								<i class="ri-menu-line"></i>
 								<span>@yield('title')</span>
 							</div>
 							<div class="col-3">
@@ -150,7 +168,7 @@
 				<!--right-sidebar-end-->
 				<!--dashboard-sidebar-start-->
 				@yield('main')
-                
+
 				<!--dashboard-sidebar-end-->
 			</div>
 		</div>
@@ -159,5 +177,15 @@
  <script src="{{asset('js/jquery.min.js')}}"></script>
  <script src="{{asset('js/jquery.js')}}"></script>
  <script src="{{asset('js/js.js')}}"></script>
+
+ <script src="{{asset('js/dataTable_js/dataTables.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/dataTables.bootstrap5.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/dataTables.buttons.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/buttons.bootstrap5.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/jszip.min.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/pdfmake.min.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/vfs_fonts.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/buttons.html5.min.js')}}"></script>
+ <script src="{{asset('js/dataTable_js/buttons.print.min.js')}}"></script>
  @stack("scripts")
 </html>
