@@ -473,6 +473,16 @@ label{
 	}
 /*dashboard-page-design-end*/
 /*add_student-page-design-start*/
+.generate_id{
+	color: #b8bbc1;
+	background: #206A5D;
+	position: absolute;
+	top: 32px;
+	right: 20.8px;
+	padding: 8.5px 18px;
+	border-radius: 0px 4px 4px 0px;	
+	cursor: pointer;
+}
 	.form-group{
 	    color: #b8bbc1;
 		display: block !Important;
@@ -641,7 +651,7 @@ label{
 		padding-top: 13px;
 	}
 	.input-msg{
-		.logout-buttonfont-size: 13px;
+		font-size: 13px;
 		margin-top: 4px;
 	}
 	.st_p_row{
@@ -664,7 +674,6 @@ label{
 		border-radius: 4px;
 		border: 1px solid #BA1654;
 		font-weight: 500;
-		float:left;
 		float:left;
 	}
 	.s-form-check{
