@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 20, 2025 at 11:18 AM
+-- Generation Time: Jan 22, 2025 at 11:21 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.12
 
@@ -20,6 +20,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `topper_bd_school`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `add_students`
+--
+
+CREATE TABLE `add_students` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `father_n` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `father_nid` int NOT NULL,
+  `mother_n` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mother_nid` int NOT NULL,
+  `class` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roll` int NOT NULL,
+  `number` int NOT NULL,
+  `pass` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('male','female') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reg_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birth_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `blo_grp` enum('o-','o+','a-','a+','b-','b+','ab-','ab+') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stu_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pre_care` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pre_vill` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pre_dist` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pre_upzi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pre_p_offi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pre_p_cod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `per_care` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `per_vill` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `per_dist` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `per_upzi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `per_p_offi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `per_p_cod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -205,7 +245,8 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '0001_01_01_000000_create_users_table', 1),
 (5, '0001_01_01_000001_create_cache_table', 1),
-(6, '0001_01_01_000002_create_jobs_table', 1);
+(6, '0001_01_01_000002_create_jobs_table', 1),
+(7, '2025_01_21_155859_create_add_students_table', 2);
 
 -- --------------------------------------------------------
 
@@ -218,6 +259,140 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_code`
+--
+
+CREATE TABLE `post_code` (
+  `id` int NOT NULL,
+  `p_code` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `p_cod_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `post_code`
+--
+
+INSERT INTO `post_code` (`id`, `p_code`, `p_cod_id`) VALUES
+(1, '1000', 1),
+(2, '1223', 1),
+(3, '1100', 2),
+(4, '1203', 2),
+(5, '1204', 2),
+(6, '1205', 3),
+(7, '1206', 4),
+(8, '1207', 5),
+(9, '1222', 5),
+(10, '1211', 6),
+(11, '1225', 11),
+(12, '1230', 12),
+(13, '1236', 13),
+(15, '1214', 14),
+(16, '1360', 15),
+(17, '1361', 15),
+(18, '1362', 16),
+(19, '1208', 17),
+(20, '1215', 17),
+(21, '1217', 18),
+(22, '1310', 19),
+(23, '1311', 19),
+(24, '1312', 19),
+(25, '1313', 19),
+(26, '1320', 20),
+(27, '1321', 20),
+(28, '1322', 20),
+(29, '1323', 20),
+(30, '1324', 20),
+(31, '1325', 20),
+(32, '1330', 21),
+(33, '1331', 21),
+(34, '1332', 21),
+(35, '1333', 21),
+(36, '1350', 22),
+(37, '1351', 22),
+(38, '1340', 23),
+(39, '1341', 23),
+(40, '1342', 23),
+(41, '1343', 23),
+(42, '1344', 23),
+(43, '1345', 23),
+(44, '1346', 23),
+(45, '1347', 23),
+(46, '1348', 23),
+(47, '1349', 23),
+(48, '	1229', 24);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_office`
+--
+
+CREATE TABLE `post_office` (
+  `id` int NOT NULL,
+  `p_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `p_office_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `post_office`
+--
+
+INSERT INTO `post_office` (`id`, `p_name`, `p_office_id`) VALUES
+(1, '	Dhaka GPO', 1),
+(2, 'Dilkusha TSO', 1),
+(3, 'Dhaka Sadar HO', 2),
+(4, '	Wari TSO', 2),
+(5, 'Gandaria TSO', 2),
+(6, 'New Market TSO', 3),
+(7, '	Dhaka Cen,ft. TSO', 4),
+(8, 'Mohammadpur Housing Estate TSO', 5),
+(9, 'Bangabhaban TSO', 5),
+(10, '	Posta TSO', 6),
+(11, '	Jigatola TSO', 7),
+(12, 'Gulshan TSO', 8),
+(13, '	Banani TSO', 9),
+(14, 'Mirpur TSO', 10),
+(15, 'Sangshad Bhaban', 11),
+(16, 'Uttara Model Town TSO', 12),
+(17, '	Dania TSO', 13),
+(18, '	Bashabo TSO', 14),
+(19, 'Demra UPO', 15),
+(20, '	Sarulia SO', 15),
+(21, 'Kodomtoli UPO', 16),
+(22, 'Dhaka Politechnique Institut', 17),
+(23, 'Tejgaon TSO', 17),
+(24, 'Shantinagar TSO', 18),
+(25, 'Keranigonj UPO', 19),
+(26, '	Dhaka Jute Mils SO', 19),
+(27, '	Ati EDSO', 19),
+(28, '	Kalatia SO', 19),
+(29, '	Nawabgonj UPO', 20),
+(30, '	Hasnabad SO', 20),
+(31, 'Daudpur So', 20),
+(32, '	Agla EDSO', 20),
+(33, '	Khalpur EDSO', 20),
+(34, 'Churan So', 20),
+(35, '	Joypara (Dohar) UPO', 21),
+(36, '	Palamgonj SO', 21),
+(37, '	Narisha SO', 21),
+(38, '	Mokshedpur So', 21),
+(39, 'Dhamrai UPO', 22),
+(40, 'Kalampur EDSO', 22),
+(41, 'Savar UPO', 23),
+(42, 'Dairy Firm SO', 23),
+(43, '	Jahangir Nagar University SO', 23),
+(44, '	Savar PATC  SO', 23),
+(45, '	Savar Cantt. SO', 23),
+(46, '	Shimulia SO', 23),
+(47, 'Kashem Cotton Mills SO', 23),
+(48, 'Rajfulbaria EDSO', 23),
+(49, 'Amin Bazar', 23),
+(50, '	EPZ SO', 23),
+(51, '	Khilkhet TSO', 24);
 
 -- --------------------------------------------------------
 
@@ -333,6 +508,15 @@ INSERT INTO `users` (`id`, `name`, `email`, `type`, `email_verified_at`, `passwo
 --
 
 --
+-- Indexes for table `add_students`
+--
+ALTER TABLE `add_students`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `add_students_number_unique` (`number`),
+  ADD UNIQUE KEY `add_students_email_unique` (`email`),
+  ADD UNIQUE KEY `add_students_stu_id_unique` (`stu_id`);
+
+--
 -- Indexes for table `cache`
 --
 ALTER TABLE `cache`
@@ -383,6 +567,18 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `post_code`
+--
+ALTER TABLE `post_code`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_office`
+--
+ALTER TABLE `post_office`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `schedule_list`
 --
 ALTER TABLE `schedule_list`
@@ -414,6 +610,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `add_students`
+--
+ALTER TABLE `add_students`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
@@ -435,7 +637,19 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `post_code`
+--
+ALTER TABLE `post_code`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT for table `post_office`
+--
+ALTER TABLE `post_office`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `schedule_list`
