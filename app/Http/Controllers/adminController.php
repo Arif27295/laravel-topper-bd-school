@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\upzila;
 use App\Models\district;
 use App\Models\post_code;
@@ -77,19 +75,19 @@ class adminController extends Controller
         $request->validate([
             's_name' => 'required|min:3',
             'father_name' => 'required|min:3',
-            'father_nid' => 'required|numeric|digits:10|unique:add_student,father_nid',
+            'father_nid' => 'required|numeric|digits:10|unique:add_students,father_nid',
             'mother_name' => 'required|min:3',
-            'mother_nid' => 'required|numeric|digits:10|unique:add_student,mother_nid',
+            'mother_nid' => 'required|numeric|digits:10|unique:add_students,mother_nid',
             'class' => 'required',
             'roll_no' => 'required|numeric',
-            's_number' => 'required|numeric|digits:11|unique:add_student,s_number',
+            's_number' => 'required|numeric|digits:11|unique:add_students,number',
             's_pass' => 'required',
-            's_email' => 'required|email|unique:add_student,s_email',
+            's_email' => 'required|email|unique:add_students,email',
             's_gender' => 'required',
             'reg_date' => 'required|date',
             's_blood' => 'required',
             's_birth' => 'required|date',
-            's_id' => 'required|unique:add_student,s_id',
+            's_id' => 'required|unique:add_students,stu_id',
             's_present_care' => 'required',
             's_present_village' => 'required',
             's_present_upzila' => 'required',
@@ -142,7 +140,10 @@ class adminController extends Controller
         $add_student->per_p_cod = $request->s_permanent_p_cod;
         $add_student->per_p_cod = $request->s_permanent_p_cod;
         $add_student->save();
-        return redirect('add_student')->with('success','Data create success.');
-        
+        return back()->with('success','Data create success.');
+     }
+     public function student_list(){
+        $student_lists = add_student::all();
+        return view('admin.student_list',compact('student_lists'));
      }
 }
