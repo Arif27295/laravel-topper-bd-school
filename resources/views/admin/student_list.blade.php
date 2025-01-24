@@ -3,6 +3,13 @@
 	Student List
 @endsection
 @section('main')
+    @if(session('delete'))
+        <p class="alert alert-danger text-white alert-design">{{session('delete')}}</p>
+    @elseif(session('success'))
+        <p class="alert alert-success text-white alert-design">{{session('success')}}</p>
+    @elseif(session('update'))
+        <p class="alert alert-success text-white alert-design">{{session('success')}}</p>
+    @endif
 <div class="row mt-5">
     <div class="col-3 all-progress-bar" style="padding-right:5px;">
         <div class="ellipsis-hover">
@@ -99,7 +106,7 @@
     </div>
     <div class="col-12 list-view">
         <div class="scrollbox pt-3" style="background: #28282A; color:#fff">
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="table_list" class="table table-striped" style="width:100%">
                 <thead>
                   <tr>
                         <th>Profile</th>
@@ -124,12 +131,14 @@
                                 <td>{{$student_list->roll}}</td>
                                 <td>{{$student_list->number}}</td>
                                 <td class='action_button' style='cursor:pointer'>
-                                    <a href='edit_product/{{$student_list->id}}'><i class='fa-solid fa-pen'></i></a> &nbsp
-                                    <a href='delete.php/{{$student_list->id}}'><i class='fa-solid fa-trash'></i></a> &nbsp
+                                    <a href='{{url('update_student_id')}}/{{$student_list->id}}'><i class='fa-solid fa-pen'></i></a> &nbsp
+                                    <a href='{{url('delete_student_id')}}/{{$student_list->id}}'><i class='fa-solid fa-trash'></i></a> &nbsp
                                     <a href='view.php/{{$student_list->id}}'><i class='fa-solid fa-eye'></i></a>
                                 </td>
                             </tr>
                         @endforeach
+                    @else
+                        <tr><td>no data here...</td></tr>
                     @endif
                 </tbody>
             </table>
@@ -138,13 +147,5 @@
 </div>
 @endsection
 @push('scripts')
-<script type="text/javascript">
-   new DataTable('#example', {
-    layout: {
-        topStart: {
-            buttons: ['copy', 'excel', 'pdf', 'colvis']
-        }
-    }
-});
-</script>
+
 @endpush
