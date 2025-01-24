@@ -38,18 +38,18 @@
 										<div class="form-group-2">
 											<select class="form-select" id="class" name="class" required>
 											  <option>Class..</option>
-											  <option>Play</option>
-											  <option>Nursery</option>
-											  <option>One</option>
-											  <option>Two</option>
-											  <option>Three</option>
-											  <option>Four</option>
-											  <option>Five</option>
-											  <option>Six</option>
-											  <option>Seven</option>
-											  <option>Eight</option>
-											  <option>Nine</option>
-											  <option>Ten</option>
+											  <option value="play">Play</option>
+											  <option value="nursery">Nursery</option>
+											  <option value="one">One</option>
+											  <option value="two">Two</option>
+											  <option value="three">Three</option>
+											  <option value="four">Four</option>
+											  <option value="five">Five</option>
+											  <option value="six">Six</option>
+											  <option value="seven">Seven</option>
+											  <option value="eight">Eight</option>
+											  <option value="nine">Nine</option>
+											  <option value="ten">Ten</option>
 											</select>
 										</div>
 										<x-input-error :messages="$errors->get('class')" class="mt-2" />
@@ -74,7 +74,7 @@
 									</div>
 									<div class="col-4 form-group" style="padding:0px 20px;">
 										<label for="number" class="form-label">Mobile Number : <sup>*</sup></label>
-										<input type="number" class="form-control count-chars" maxlength="11" data-max-chars="11" id="number" placeholder="Number.." name="s_number" required >
+										<input type="text" class="form-control count-chars" maxlength="11" data-max-chars="11" id="number" placeholder="Number.." name="s_number" required >
 										<div class="input-msg"></div>
 										<x-input-error :messages="$errors->get('s_number')" class="mt-2" />
 									</div>
@@ -117,7 +117,7 @@
 											  <option value="o-">O-</option>
 											  <option value="o+">O+</option>
 											  <option value="a-">A-</option>
-											  <option value="a+">A+</option> 
+											  <option value="a+">A+</option>
 											  <option value="b-">B-</option>
 											  <option value="b+">B+</option>
 											  <option value="ab-">AB-</option>
@@ -280,7 +280,7 @@
 					//tooltip-end
 
 
-					//upzila-start	
+					//upzila-start
 					$('#s_present_district').on('change', function() {
 						var district_id = $(this).val();
 						if (district_id) {
@@ -441,15 +441,15 @@
 			var v4 =	$("#s_present_district").val();
 			var v5 =	$("#s_present_p_office").val();
 			var v6 =	$("#s_present_p_cod").val();
-			
-				
+
+
 				$("#s_permanent_district").val(v4);
 				$("#s_permanent_care").val(v1);
 				$("#s_permanent_village").val(v2);
-				
+
 			//upzila-start-
 				$.ajax({
-					url: '{{route("upzila")}}',                                         
+					url: '{{route("upzila")}}',
 					type: "POST",
 					data: {
 						"_token": "{{ csrf_token() }}",
@@ -467,7 +467,7 @@
 			//upzila-end-
 			//post-office-start-
 				$.ajax({
-					url: '{{route("post_office")}}',                                         
+					url: '{{route("post_office")}}',
 					type: "POST",
 					data: {
 						"_token": "{{ csrf_token() }}",
@@ -485,7 +485,7 @@
 			//post-office-end-
 			//post-office-code-start-
 				$.ajax({
-					url: '{{route("post_code")}}',                                         
+					url: '{{route("post_code")}}',
 					type: "POST",
 					data: {
 						"_token": "{{ csrf_token() }}",
@@ -504,7 +504,7 @@
 			}else{
 				$("#s_permanent_care").val('');
 				$("#s_permanent_village").val('');
-				
+
 				var districtOptions = '<option value="">District..</option>';
 				@if($districts->count() > 0)
 					@foreach($districts as $district)
@@ -515,14 +515,14 @@
 
 				var upzilaOptions = '<option value="">Upazila/P.S..</option>';
 				$('#s_permanent_upzila').html(upzilaOptions);
-				
+
 				var post_office_Options = '<option value="">Post Office..</option>';
 				$("#s_permanent_p_office").html(post_office_Options);
 
 				var post_code_Options = '<option value="">Post Code..</option>';
 				$("#s_permanent_p_cod").html(post_code_Options);
 			}
-				   
+
 		  });
 	//add-student-end--
 				</script>
