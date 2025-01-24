@@ -3,10 +3,11 @@ namespace App\Http\Controllers;
 use App\Models\upzila;
 use App\Models\district;
 use App\Models\post_code;
-use App\Models\post_office;
 use App\Models\add_student;
+use App\Models\post_office;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class adminController extends Controller
 {
@@ -75,14 +76,14 @@ class adminController extends Controller
         $request->validate([
             's_name' => 'required|min:3',
             'father_name' => 'required|min:3',
-            'father_nid' => 'required|numeric|digits:10|unique:add_students,father_nid',
+            'father_nid' => 'required|numeric|digits:10',
             'mother_name' => 'required|min:3',
-            'mother_nid' => 'required|numeric|digits:10|unique:add_students,mother_nid',
+            'mother_nid' => 'required|numeric|digits:10',
             'class' => 'required',
             'roll_no' => 'required|numeric',
-            's_number' => 'required|numeric|digits:11|unique:add_students,number',
+            's_number' => 'required|numeric|digits:11',
             's_pass' => 'required',
-            's_email' => 'required|email|unique:add_students,email',
+            's_email' => 'nullable|email',
             's_gender' => 'required',
             'reg_date' => 'required|date',
             's_blood' => 'required',
@@ -110,7 +111,7 @@ class adminController extends Controller
         $add_student->class = $request->class;
         $add_student->roll = $request->roll_no;
         $add_student->number = $request->s_number;
-        $add_student->pass = $request->s_pass;
+        $add_student->pass = Hash::make($request->s_pass);
         $add_student->email = $request->s_email;
         $add_student->gender = $request->s_gender;
         $add_student->reg_date = $request->reg_date;
@@ -145,5 +146,92 @@ class adminController extends Controller
      public function student_list(){
         $student_lists = add_student::all();
         return view('admin.student_list',compact('student_lists'));
+     }
+     public function update_student_id($id){
+        $upzilas = upzila::all();
+        $districts = district::all();
+        $post_offices = post_office::all();
+        $post_codes = post_code::all();
+        $student_info = add_student::findOrFail($id);
+        return view('admin.update_student',compact('student_info','districts','upzilas','post_offices','post_codes'));
+     }
+     public function delete_student_id($id){
+        add_student::destroy($id);
+        return back()->with('success','Data Deleted Successfully');
+     }
+     public function update_student($id, Request $request){
+        $request->validate([
+            's_name' => 'required|min:3',
+            'father_name' => 'required|min:3',
+            'father_nid' => 'required|numeric|digits:10',
+            'mother_name' => 'required|min:3',
+            'mother_nid' => 'required|numeric|digits:10',
+            'class' => 'required',
+            'roll_no' => 'required|numeric',
+            's_number' => 'required|numeric|digits:11',
+            's_pass' => 'nullable',
+            's_email' => 'nullable|email',
+            's_gender' => 'required',
+            'reg_date' => 'required|date',
+            's_blood' => 'required',
+            's_birth' => 'required|date',
+            's_present_care' => 'required',
+            's_present_village' => 'required',
+            's_present_upzila' => 'required',
+            's_present_district' => 'required',
+            's_present_p_office' => 'required',
+            's_present_p_cod' => 'required|numeric',
+            's_permanent_care' => 'required',
+            's_permanent_village' => 'required',
+            's_permanent_upzila' => 'required',
+            's_permanent_district' => 'required',
+            's_permanent_p_office' => 'required',
+            's_permanent_p_cod' => 'required|numeric',
+        ]);
+        $add_student = add_student::findOrFail($id);
+        $add_student->name = $request->s_name;
+        $add_student->father_n = $request->father_name;
+        $add_student->father_nid = $request->father_nid;
+        $add_student->mother_n = $request->mother_name;
+        $add_student->mother_nid = $request->mother_nid;
+        $add_student->class = $request->class;
+        $add_student->roll = $request->roll_no;
+        $add_student->number = $request->s_number;
+
+        if($request->s_pass == ""){
+
+        }else{
+            $add_student->pass = Hash::make($request->s_pass);
+        }
+
+        $add_student->email = $request->s_email;
+        $add_student->gender = $request->s_gender;
+        $add_student->reg_date = $request->reg_date;
+        $add_student->birth_date = $request->s_birth;
+        $add_student->blo_grp = $request->s_blood;
+        if($request->hasFile("s_picture")){
+            $file=$request->file('s_picture');
+            $imageName=time().'_'.$file->getClientOriginalName();
+            $file->move(\public_path("student_image/"), $imageName);
+            $add_student->img = $imageName;
+         }else{
+
+         }
+        $add_student->pre_care = $request->s_present_care;
+        $add_student->pre_vill = $request->s_present_village;
+        $add_student->pre_dist = $request->s_present_district;
+        $add_student->pre_upzi = $request->s_present_upzila;
+        $add_student->pre_p_offi = $request->s_present_p_office;
+        $add_student->pre_p_cod = $request->s_present_p_cod;
+        $add_student->pre_p_cod = $request->s_present_p_cod;
+        $add_student->per_care = $request->s_permanent_care;
+        $add_student->per_vill = $request->s_permanent_village;
+        $add_student->per_dist = $request->s_permanent_district;
+        $add_student->per_upzi = $request->s_permanent_upzila;
+        $add_student->per_p_offi = $request->s_permanent_p_office;
+        $add_student->per_p_cod = $request->s_permanent_p_cod;
+        $add_student->per_p_cod = $request->s_permanent_p_cod;
+        $add_student->save();
+        return view('admin.student_list')->with('success','Data updated successfully.');
      }
 }
