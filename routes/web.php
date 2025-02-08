@@ -34,3 +34,9 @@ Route::post('/student', [adminController::class, 'create_student'])->name('creat
 Route::get('/update_student_id/{id}', [adminController::class, 'update_student_id'])->name('update_student_id');
 Route::get('/delete_student_id/{id}', [adminController::class, 'delete_student_id'])->name('delete_student_id');
 Route::put('/update_student/{id}', [adminController::class, 'update_student'])->name('update_student');
+
+
+
+Route::get('/send-notification', [NotificationController::class, 'sendNotification']);
+Route::get('/notifications', [NotificationController::class, 'getNotifications']);
+Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead']);
