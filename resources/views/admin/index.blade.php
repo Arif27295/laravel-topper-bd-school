@@ -93,5 +93,15 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="p-6 bg-white border-b border-gray-200">
+					@foreach(auth()->user()->notifications as $notification)
+						<div class="bg-blue-300 p-3 m-2">
+							<b>{{$notification->data['name']}}</b> started following you !!!
+							<a href="{{route('marksred', $notification->id)}}" class="p-2 bg-danger text-white rounded-lg">
+								Mark as read</a>
+						</div>
+					@endforeach
+				</div>
 
 				@endsection
